@@ -1,0 +1,114 @@
+@import "helper/variables";
+@import "mixins/mixins";
+
+html {
+	height: 100%;
+	font-family: $primary-font;
+
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+
+// default theme light
+
+body {
+	@include themed() {
+		background-color: t(bg);
+	}
+}
+
+.container {
+	// mixin
+	@include themed() {
+		background-color: t(bg-panel);
+	}
+
+	width: 50vw;
+
+	margin: 5em;
+	padding: 5em;
+	border-radius: 15px;
+
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+
+	// title
+
+	h1 {
+		margin: 0;
+		@include themed() {
+			color: t(color-headings);
+		}
+	}
+
+	p {
+		@include themed() {
+			color: t(color-text);
+		}
+		font-size: 1em;
+		line-height: 1.8em;
+		margin-top: 2em;
+	}
+}
+
+// toggle button
+
+input[type=checkbox] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 52px;
+	height: 27px;
+	background: grey;
+	float: right;
+	border-radius: 100px;
+	position: relative;
+	margin-top: 10px;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	@include themed() {
+		background: t(color-headings);
+	}
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 45px;
+}
+
+// transition
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+	transition: all 750ms !important;
+	transition-delay: 0 !important;
+}
